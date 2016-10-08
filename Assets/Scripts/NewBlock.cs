@@ -12,11 +12,11 @@ public class NewBlock : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Materials/");
+		DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Materials/Blocks/");
 		FileInfo[] info = dir.GetFiles("*.*");
 		foreach (FileInfo f in info) {
 			string fname = f.Name.Split('.')[0];
-			materials.Add(Resources.Load("Materials/"+fname, typeof(Material)) as Material);
+			materials.Add(Resources.Load("Materials/Blocks/"+fname, typeof(Material)) as Material);
 		}
 
 		int randomNum = Random.Range(0, materials.Count);
