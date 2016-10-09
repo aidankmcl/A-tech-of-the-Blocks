@@ -11,7 +11,7 @@ public class DropBlocks : MonoBehaviour {
 		foreach (Transform child in transform) {
 			Children.Add(child.gameObject);
 		}
-		InvokeRepeating("DropBlock", 0, 2);
+		InvokeRepeating("DropBlock", 2, 4);
 	}
 
 	// Update is called once per frame

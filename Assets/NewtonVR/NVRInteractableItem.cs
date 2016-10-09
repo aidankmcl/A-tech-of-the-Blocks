@@ -116,6 +116,7 @@ namespace NewtonVR
             {
                 this.Rigidbody.velocity = GetMeanVector(VelocityHistory);
                 this.Rigidbody.angularVelocity = GetMeanVector(AngularVelocityHistory);
+				this.Rigidbody.mass = 1f;
 
                 VelocityHistoryStep = 0;
 

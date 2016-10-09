@@ -14,7 +14,8 @@ public class Platform : MonoBehaviour {
 	public List<GameObject> slats;
 	public List<GameObject> snapBoxes;
 	public List<GameObject> activeSnapBoxes;
-	public int snapDistance;
+	public List<GameObject> boxesToSnap;
+	public float snapDistance;
 
 	private Vector3 slatVector = new Vector3(0f,0.5f,0f);
 	private Vector3 boxVector = new Vector3(0f,0.66f,0f);
@@ -50,9 +51,7 @@ public class Platform : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		foreach (GameObject activeSnapBox in activeSnapBoxes) {
-			activeSnapBox.GetComponent<MeshRenderer>().enabled = true;
-		}
+		
 	}
 
 	private GameObject GetBox(int x, int y, int z) {

@@ -9,7 +9,7 @@ public class Box : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		available = true;
 	}
 
 	// Update is called once per frame
@@ -17,19 +17,18 @@ public class Box : MonoBehaviour {
 
 	}
 
+
+
 	void OnTriggerStay () {
-		GetComponent<MeshRenderer>().enabled = true;
-		if (!parentPlatform.GetComponent<Platform>().activeSnapBoxes.Contains(transform.gameObject)) {
+		if (available && !parentPlatform.GetComponent<Platform>().activeSnapBoxes.Contains(transform.gameObject)) {
 			parentPlatform.GetComponent<Platform>().activeSnapBoxes.Add(transform.gameObject);
 		}
 	}
 
 	void OnTriggerExit () {
-		parentPlatform.GetComponent<Platform>().activeSnapBoxes.Remove(transform.gameObject);
-		transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
-	}
-
-	void Snapped () {
-		available = false;
+		if (available) {
+			parentPlatform.GetComponent<Platform> ().activeSnapBoxes.Remove (transform.gameObject);
+			GetComponent<MeshRenderer> ().enabled = false;
+		}
 	}
 }
