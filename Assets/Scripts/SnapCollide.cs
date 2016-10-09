@@ -15,13 +15,6 @@ public class SnapCollide : MonoBehaviour {
 
 	}
 
-	// void OnTriggerEnter () {
-	// 	GetComponent<MeshRenderer>().enabled = true;
-	// }
-	//
-	void OnTriggerExit () {
-		GetComponent<MeshRenderer>().enabled = false;
-	}
 	void OnTriggerStay() {
 		GetComponent<MeshRenderer>().enabled = true;
 	}
