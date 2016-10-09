@@ -28,25 +28,53 @@ public class CheckSnap : MonoBehaviour {
 
 				if (platform.GetComponent<Platform> ().activeSnapBoxes.Count >= heldBlock.transform.childCount) {
 					foreach (GameObject activeCollider in platform.GetComponent<Platform>().activeSnapBoxes) {
-						
+
 						if (activeCollider.GetComponent<Box> ().available && Vector3.Distance (child.position, activeCollider.transform.position) < snapDistance) {
 							platform.GetComponent<Platform> ().boxesToSnap.Add (activeCollider);
+							noMatch = false;
+							break;
+						} else {
+							noMatch = true;
 						}
+					}
+
+					if (noMatch) {
+						break;
 					}
 
 				}
 			}
 		} else {
-			Debug.Log ("Please please please please please");
 			if (platform.GetComponent<Platform> ().boxesToSnap.Count > 0) {
-				Debug.Log ("SUUUUUHUSDHUSHADUSAIDHISN");
+				Debug.Log ("SUUUUUH DOOOOOO");
 				tempMaterial = heldBlock.GetComponentsInChildren<MeshRenderer> ()[0].material;
 				foreach (GameObject snapBox in platform.GetComponent<Platform> ().boxesToSnap) {
 					snapBox.GetComponent<MeshRenderer> ().material = tempMaterial;
 					snapBox.GetComponent<MeshRenderer> ().enabled = true;
 					snapBox.GetComponent<Box> ().available = false;
+
+					if (!platform.GetComponent<Platform>().checkTheseYValues.Contains ((int)snapBox.GetComponent<Box> ().vectorIndex.y))
+						platform.GetComponent<Platform>().checkTheseYValues.Add ((int)snapBox.GetComponent<Box> ().vectorIndex.y);
 				}
 				platform.GetComponent<Platform> ().boxesToSnap.Clear ();
+
+				foreach (int y in platform.GetComponent<Platform>().checkTheseYValues) {
+					bool full = true;
+					for (int x = 0; x < platform.GetComponent<Platform>().rows; x++) {
+						for (int z = 0; z < platform.GetComponent<Platform>().columns; z++) {
+							Debug.Log (platform.GetComponent<Platform>().GetBox (x, z, y).GetComponent<Box> ().available);
+							if (platform.GetComponent<Platform>().GetBox (x, z, y).GetComponent<Box> ().available) {
+								full = false;
+							}
+						}
+					}
+					if (full) {
+						Debug.Log ("One floor is good!!");
+						platform.GetComponent<Platform> ().FloorCheck (y);
+					}
+				}
+
+				Destroy (heldBlock);
 			}
 		}
 
